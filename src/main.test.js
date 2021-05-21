@@ -45,3 +45,8 @@ Deno.test("八丈町 [139.785231, 33.115122]", async () => {
     city: "八丈町",
   });
 });
+
+Deno.test("範囲外 [135.375680, 36.880782]", async () => {
+  const res = await geocoder([135.375680, 36.880782]);
+  t.assertEquals(res, null);
+});

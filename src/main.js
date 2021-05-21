@@ -26,14 +26,12 @@ export const openReverseGeocoder = async (lnglat, inputOptions = {}) => {
     city: "",
   };
 
-  let buffer;
-
-  try {
-    buffer = await (await fetch(tileUrl)).arrayBuffer();
-  } catch (error) {
-    throw new Error(error);
+  const res = await fetch(tileUrl);
+  if (res.status != 200) {
+    await res.text();
+    return null;
   }
-
+  const buffer = await res.arrayBuffer();
   const tile = new VectorTile(new Pbf(buffer));
   let layers = Object.keys(tile.layers);
 
