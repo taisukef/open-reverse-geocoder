@@ -2,7 +2,7 @@
 
 オープンソースかつ無料で利用できる逆ジオコーダーです。
 
-この NPM モジュールを使用すると、緯度経度から都道府県名および市区町村名を検索することができます。
+このESモジュールを使用すると、緯度経度から都道府県名および市区町村名を検索することができます。
 
 都道府県名および市区町村名を検索するために必要なデータを、ベクトルタイルフォーマットで GitHub ページ上にホストしていますので、安心して無料でご利用いただけます。
 
@@ -12,32 +12,15 @@
 
 ## 仕組み
 
-1. `openReverseGeocoder()` の引数として指定された緯度経度を元に、クライアントサイドでズームレベル10相当（約30km平米）のタイル番号を取得し、ウェブサーバーからベクトルタイルを AJAX でダウンロードします。
-2. AJAX でダウンロードしたベクトルタイルの中に含まれる市区町村のポリゴンの中から、指定された緯度経度が含まれるポリゴンをクライアントサイドで検索し、都道府県名及び市区町村名を返します。
-
-## インストール方法
-
-```
-$ npm install @geolonia/open-reverse-geocoder -S
-```
+1. `openReverseGeocoder()` の引数として指定された緯度経度を元に、クライアントサイドでズームレベル10相当（約30km平米）のタイル番号を取得し、ウェブサーバーからベクトルタイルを fetch でダウンロードします。
+2. fetch でダウンロードしたベクトルタイルの中に含まれる市区町村のポリゴンの中から、指定された緯度経度が含まれるポリゴンをクライアントサイドで検索し、都道府県名及び市区町村名を返します。
 
 ## API
 
 ```
-const { openReverseGeocoder } = require(@geolonia/open-reverse-geocoder)
-
-openReverseGeocoder([139.7673068, 35.6809591]).then(result => {
-  console.log(result) // {"code": "13101", "prefecture": "東京都", "city": "千代田区"}
-})
-```
-
-または
-
-```
-const { openReverseGeocoder } = require(@geolonia/open-reverse-geocoder)
-
-const result = await openReverseGeocoder([139.7673068, 35.6809591])
-console.log(result) // {"code": "13101", "prefecture": "東京都", "city": "千代田区"}
+import { openReverseGeocoder as geocoder } from 'https://taisukef.github.io/open-reverse-geocoder/src/main.js';
+const res = await geocoder([139.7673068, 35.6809591]);
+console.log(res);
 ```
 
 ## 開発者向け情報
