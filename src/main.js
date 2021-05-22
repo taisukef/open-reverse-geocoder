@@ -27,7 +27,7 @@ export const openReverseGeocoder = async (lnglat, inputOptions = {}) => {
   };
 
   const res = await fetch(tileUrl);
-  if (res.status != 200) {
+  if (!res.ok) {
     await res.text();
     return null;
   }
